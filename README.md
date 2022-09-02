@@ -188,3 +188,10 @@ h1 {
 h1 {
   font-size: calc(1.5rem + 3vw);
 }
+```
+
+뷰포트 메타 태그
+```
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+너비를 장치의 실제 너비로 재정의
