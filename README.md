@@ -235,7 +235,7 @@ for(const fruit of fruits) {
   console.log(fruit);
 }
 ``` 
-fruits배열에 모든 값을 하나씩 가져와 콘솔에 나타냄
+fruits배열에 모든 값을 하나씩 가져와 콘솔에 나타냄  
 
 자바스크립트의 변수 var, let, const
 var은 재할당, 재선언이 가능
@@ -325,3 +325,92 @@ arr.shift();
 arr // ['a','b']
 ```
 
+익명함수 사용법
+주로 이벤트 발생에 사용
+```
+myBtn.onClick = function() {
+  alert("hi");
+}
+```
+
+이벤트 핸들러 등록/제거
+```
+btn.addEventListener('click', changeBgcolor);
+btn.removeEventListener('click', changeBgcolor);
+```
+
+JSON  
+자바스크립트 객체 문법을 따르는 문자 기반의 데이터 포맷  
+
+비동기 처리  
+특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고  
+다음 코드를 먼저 실행하는 특성  
+ex)
+```
+function getData() {
+  let data;
+  $.get('url', function(response) {
+    data = response;
+  });
+  return data;
+}
+console.log(getData()) // undefined
+```
+$.get 은 ajax로 비동기 처리된다.  
+따라서 데이터를 요청하고 받아오는 것을 기다리는것이 아닌 다음 코드를 실행한다.  
+즉 data변수에 값을 넣기 전에 return문을 실행하여 빈 data가 리턴되게 된다.  
+
+CallBack 함수  
+함수를 다른 함수의 인자로 사용하는 것 즉 고차함수  
+위와 같은 상황을 callback 함수로 해결할 수 있다.  
+```
+function getData(callbackFunc) {
+  $.get('url', function(response) {
+    callbackFunc(response);
+  });
+}
+getData(function(data) {
+  console.log(data);
+});
+```
+
+Promise  
+자바스크립트 비동기 처리에 사용되는 객체  
+비동기 처리를 위해 callback함수를 중첩으로 사용하면 callback 지옥에 빠질 수 있다.  
+따라서 위 코드에 promise를 적용시킬 수 있다.  
+```
+function getData(callback) {
+  return new Promise(function(resolve, reject) {
+    $.get('url', function(response) {
+      if(response) resolve(response);
+      else reject(new Error("failed"));
+    });
+  });
+}
+getData().then(function(data) {
+  console.log(data);
+}).catch(function(err) {
+  console.error(err);
+});
+```
+promise 메서드를 호출하면 두개의 인자를 가진 콜백함수를 선언할 수 있다.  
+인자로는 resolve와 reject가 존재하고  
+resolve()를 실행하면 then()을 이용하여 처리 결과 값을 받을 수 있다.  
+reject()를 실행하면 catch()로 실패 이유를 받을 수 있다.  
+promise의 장점은 여러개의 promise가 연결 가능하다는 점이다.  
+then()메서드를 호출하고 나면 새로운 promise객체가 반환되기 때문이다.
+```
+new Promise(function(resolve, reject) {
+  setTimeout(function() {
+    resolve(1);
+  }, 2000);
+}).then(function(result) {
+  console.log(result); // 1
+  return result + 10;
+}).then(function(result) {
+  console.log(result); // 11
+  return result + 20;
+}).then(function(result) {
+  console.log(result); // 31
+});
+```
