@@ -1,4 +1,6 @@
 # YESFORM STUDY
+모든 컨텐츠는 
+https://developer.mozilla.org/ko/
 
 ## 주석
 ```
@@ -179,6 +181,22 @@ flex 정의 시
 현재 화면 미디어로 표시되고 있는지 와 최소너비가 800px이상인지를 검사 후
 둘 다 만족하면 내부가 적용됨
 
++)논리합을 이용하려면
+조건을 ,로 분리하여 사용한다
+```
+@media screen and (min-width: 800px), (orientation: landscape) { ... }
+```
+
+미디어 쿼리의 방향성
+```
+@media(orientation: landscape) {
+  body {
+      color:red;
+  }
+}
+```
+가로, 세로모드 검사하여 적용
+
 반응형 타이포그래피에 뷰포트 단위 적용하기
 ```
 h1 {
@@ -195,3 +213,6 @@ h1 {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ```
 너비를 장치의 실제 너비로 재정의
+
+
+##JavsScript
