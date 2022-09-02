@@ -216,3 +216,112 @@ h1 {
 
 
 ##JavsScript
+웹 페이지에서 복잡한 기능을 구현할 수 있도록 하는 스크립트, 프로그래밍 언어  
+주기적 갱신, 사용자와의 상호작용과 같은 일을 가능하게 한다.  
+자바는 클라이언트, 서버(Node.js) 사이드 코드가 모두 가능하다.  
+
+기본적으로 script태그 안에 작성하여 동작한다.
+```
+<script src="script.js" defer></script>
+여기서 defer 속성은 브라우저가 페이지 파싱을 모두 끝낸 후에 script를 실행하겠다는 것임
+추가로 async 속성은 파싱과 script를 동시에 실행하는 것임
+```
+
+### for of 반복문
+배열의 모든 값을 가져올때까지 반복
+```
+const fruits = ['apple', 'bananas', 'cherries'];
+for(const fruit of fruits) {
+  console.log(fruit);
+}
+``` 
+fruits배열에 모든 값을 하나씩 가져와 콘솔에 나타냄
+
+자바스크립트의 변수 var, let, const
+var은 재할당, 재선언이 가능
+let은 재할당은 가능하지만 재선언 불가능
+const는 재할당, 재선언 불가능
+```
+var a = '1';
+var a = '2'; 재선언 가능
+a = '3'; 재할당 가능
+
+let b = '4';
+let b = '5'; 오류 - 재선언 불가능
+b = '6'; 재할당 가능
+
+const c = '7';
+const c = '8'; 오류 - 재선언 불가능
+c = '9' 오류 - 재할당 불가능
+```
+
+문자열 <-> 숫자
+```
+var strNum = '123'
+var num = Number(strNum);
+
+var num = 123;
+var strNum = num.toString();
+```
+
+문자열 길이알기
+```
+var str = '123';
+str.length; // 3
+```
+
+문자열에 하위문자열 찾기
+```
+var str='123';
+str.indexOf('2'); // 1
+str.indexOf('4'); // -1 즉 -1이 나오면 존재하지 않는것
+```
+
+문자열 자르기
+```
+var str='123';
+str.slice(0,2); // "12"
+```
+
+문자열 대/소문자 변경
+```
+var str='AbC';
+str.toLowerCase(); // abc
+str.toUpperCase(); // ABC
+```
+
+문자열 일부분 변경
+```
+var str='123';
+str.replace('2','7'); // '173'
+```
+
+문자열 <-> 배열로
+```
+var str='a,b,c,d';
+var arr=str.split(',');
+arr // ['a','b','c','d']
+
+var sstr = arr.join(','); // 'a,b,c,d'
+```
+
+배열의 끝에 값 넣고 빼기
+```
+var arr = ['a','b'];
+arr.push('c');
+arr // ['a','b','c']
+
+arr.pop();
+arr // ['a','b']
+```
+
+배열의 앞에 값 넣고 빼기
+```
+var arr = ['a','b'];
+arr.unshift('c');
+arr // ['c','a','b']
+
+arr.shift();
+arr // ['a','b']
+```
+
