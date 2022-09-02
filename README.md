@@ -1,5 +1,12 @@
 # YESFORM STUDY
 
+## 주석
+```
+HTML : <!-- 주석 -->
+CSS : /* 주석 */
+JS, PHP : //주석 or /* 주석 */
+```
+
 ## HTML
 ### Tag
 HTML 문서를 구성하는 기본단위, 여는태그와 닫는태그가 존재(닫는 태그가 없는 태그도 존재한다)
@@ -118,4 +125,34 @@ div::first-line {
 ```
 div태그의 첫 문장만 색깔을 바꿈
 
+### 블록 및 인라인
+
+display 값으로 지정
+
+block 정의 시
+1. 박스가 사용 가능한 공간을 100%로 채움
+2. 새 줄로 행갈이
+3. width, height 속성부여 가능
+4. padding, margin, border로 박스가 밀려남
+ex) h1, p
+
+inline 정의 시
+1. 행갈이를 하지 않음
+2. width, height 속성 적용 x
+3. padding, margin, border로 밀려나지 않음
+ex) a, span, em, strong 등
+
+flex 정의 시
+내부 디스플레이 박스가 flex로 변경
+
 예스폼 HTML, CSS, JS, MySql, PHP 공부 내용 기록
+
+### 상대 길이 단위
+|단위|관련사항|
+|------|---|
+|em|요소의 글꼴 크기|
+|rem|루트 요소의 글꼴 크기|
+|vw|viewport 너비의 1%|
+|vh|viewport 높이의 1%|
+|vmin|viewport의 작은 치수의 1%|
+|vmax|viewport 큰 치수의 1%|
