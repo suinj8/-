@@ -782,7 +782,7 @@ IS NOT : 양쪽 피연산자가 다르면 참
 ### 패턴 매칭(LIKE)  
 와일드카드를 이용하여 매칭  
 
-```
+``` mysql
 SELECT * FROM TEST
 WHERE NAME LIKE '장%'; // 장으로 시작하는 모든 이름을 가져옴
 
@@ -813,7 +813,7 @@ WHERE ADDRESS="서울"); // 2. 주소가 서울인 것들의
 따라서 보통 검색이 자주 사용되는 테이블에 이용  
 
 인덱스 생성  
-```
+``` mysql
 CREATE INDEX TESTIDX
 ON TEST (NAME); // TEST테이블의 NAME 필드에 TESTIDX라는 INDEX를 생성
 
@@ -821,3 +821,66 @@ ON TEST (NAME); // TEST테이블의 NAME 필드에 TESTIDX라는 INDEX를 생성
 SHOW INDEX
 FROM TEST; // TEST테이블의 인덱스를 확인할 수 있다
 ```
+
+인덱스 추가  
+``` mysql
+ALTER TABLE TEST
+ADD INDEX TESTIDX (NAME); // TEST테이블의 NAME컬럼에 기본 인덱스를 추가
+```
+
+인덱스 삭제  
+``` mysql
+ALTER TABLE TEST
+DROP INDEX TESTIDX; // TEST테이블에서 TESTIDX 삭제
+또는
+DROP INDEX TESTIDX; 
+ON TEST // TEST테이블에서 TESTIDX삭제
+```
+
+### MySQL 내장함수
+
+LENGTH() - 문자열 길이 반환  
+CONCAT() - 입력받은 문자열을 모두 합침, 하나라도 NULL이면 NULL출력  
+LOCATE() - 특정 문자열이 나타나는 위치를 찾음(단, MySQL은 문자열의 첫 문자의 인덱스를 1부터 계산!)
+``` mysql
+SELECT LOCATE('abc','ababcDEFabc'), // 3
+LOCATE('abc','ababcDEFabc',4); // 9 세번째 인수는 특정 문자열을 찾기 시작할 인덱스 지정 즉 4번째부터 찾기 시작
+```
+LEFT(), RIGHT() - 왼쪽, 오른쪽으로부터 명시한 개수만큼 문자 반환  
+``` mysql
+SELECT LEFT('abcd', 2), // ab
+RIGHT('abcd',2); // cd
+```
+LOWER(), UPPER() - 입력받은 문자열을 모두 소문자/대문자로 바꿈  
+REPLACE() - 전달받은 문자열에서 특정 문자열을 찾아 대체 문자열로 교체
+``` mysql
+SELECT REPLACE('abcd','ab','kk'); // kkcd
+```
+TRIM() - 입력받은 문자열의 앞 or 뒤 or 양쪽 모두에 있는 특정 문자를 제거  
+BOTH - 양쪽제거, LEADING - 앞 제거, TRAILING - 뒤 제거  
+``` mysql
+SELECT TRIM('    !!!abc!!!     '), // (!!!abc!!!) 제거할 문자를 명시하지 않으면 자동으로 공백 제거
+TRIM(LEADING '!' FROM '!!!abc!!!'); // (abc!!!)
+```
+NOW() - 현재 날짜와 시간 반환 'YYYY-MM-DD HH:MM:SS' or 'YYYYMMDDHHMMSS'  
+CURDATE() - 현재 날짜 반환 'YYYY-MM-DD' or 'YYYYMMDD'  
+CURTIME() - 현재 시간 반환 'HH:MM:SS' or 'HHMMSS'  
+그 외 날짜, 시간 형식화  
+tcpschool.com/mysql/mysql_builtInFunction_dateTime  
+
+### 그룹함수
+COUNT() - 만족하는 총 개수 반환  
+MIN(), MAX() - 선택된 필드의 최소, 최대값 반환   
+SUM() - 숫자 필드에 저장된 값의 총 합 반환   
+AVG() - 숫자 필드에 저장된 값의 평균 반환  
+  
+### GROUP BY 절
+선택된 레코드의 집합을 필드의 값이나 표현식에 의해 그룹화한 결과 집합 반환  
+SELECT 절에서만 사용 가능하며 그룹함수와 많이 사용함  
+```
+SELECT AGE, COUNT(*) AS cnt // 4. AGE와 개수를 나타낸다
+FROM CUSTOMER // 1. CUSTOMER 테이블에서
+GROUP BY AGE // 2. AGE로 그룹화된 결과 집합 중
+HAVING 조건; // 3. 조건에 맞는것의
+```
++) HAVING 절을 이용하여 GROUP BY로 반환되는 집합 조건을 설정 가능  
