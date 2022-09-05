@@ -30,12 +30,12 @@ HTML 문서를 구성하는 기본단위, 여는태그와 닫는태그가 존재
 글꼴, 색상, 크기 등 HTML에 스타일을 추가한다.
 
 ### HTML문서에 CSS 추가
-```
+``` css
 <link rel="stylesheet" href="문서경로">
 ```
 
 ### Selector
-```
+``` css
 유형 선택자
 h1 {
  color: red;
@@ -62,7 +62,7 @@ div, span {
 일치하는 모든 노드를 선택, div와 span에 적용
 ```
 
-```
+``` html
 자손 결합자
 div span {
   color: red;
@@ -111,7 +111,7 @@ div의 일반형제는 p와 a태그 둘 다이다.
 의사클래스 : 선택자에 추가하는 키워드로 선택한 요소가 특별한 상태여야 만족한다.  
 의사요소 : 선택한 요소의 일부분에만 스타일을 입힐 수 있다.
 
-```
+``` css
 의사클래스
 button:hover {
   color:blue;
@@ -119,7 +119,7 @@ button:hover {
 ```
 마우스를 버튼에 올렸을 때만 파란색으로 바뀜
 
-```
+``` css
 의사요소
 div::first-line {
   color:blue;
@@ -171,7 +171,7 @@ flex 정의 시
   
 ### 반응형 디자인
 미디어 쿼리
-```
+``` css
 @media screen and (min-width: 800px) {
   .container {
     margin: 1em 2em;
@@ -183,12 +183,12 @@ flex 정의 시
 
 +)논리합을 이용하려면
 조건을 ,로 분리하여 사용한다
-```
+``` css
 @media screen and (min-width: 800px), (orientation: landscape) { ... }
 ```
 
 미디어 쿼리의 방향성
-```
+``` css
 @media(orientation: landscape) {
   body {
       color:red;
@@ -198,7 +198,7 @@ flex 정의 시
 가로, 세로모드 검사하여 적용
 
 반응형 타이포그래피에 뷰포트 단위 적용하기
-```
+``` css
 h1 {
   font-size: 5vw;
 } 단 텍스트 확대, 축소기능 상실한다
@@ -209,7 +209,7 @@ h1 {
 ```
 
 뷰포트 메타 태그
-```
+``` html
 <meta name="viewport" content="width=device-width, initial-scale=1">
 ```
 너비를 장치의 실제 너비로 재정의
@@ -221,7 +221,7 @@ h1 {
 자바는 클라이언트, 서버(Node.js) 사이드 코드가 모두 가능하다.  
 
 기본적으로 script태그 안에 작성하여 동작한다.
-```
+``` html
 <script src="script.js" defer></script>
 여기서 defer 속성은 브라우저가 페이지 파싱을 모두 끝낸 후에 script를 실행하겠다는 것임
 추가로 async 속성은 파싱과 script를 동시에 실행하는 것임
@@ -229,7 +229,7 @@ h1 {
 
 ### for of 반복문
 배열의 모든 값을 가져올때까지 반복
-```
+``` js
 const fruits = ['apple', 'bananas', 'cherries'];
 for(const fruit of fruits) {
   console.log(fruit);
@@ -241,7 +241,7 @@ fruits배열에 모든 값을 하나씩 가져와 콘솔에 나타냄
 var은 재할당, 재선언이 가능
 let은 재할당은 가능하지만 재선언 불가능
 const는 재할당, 재선언 불가능
-```
+``` js
 var a = '1';
 var a = '2'; 재선언 가능
 a = '3'; 재할당 가능
@@ -256,7 +256,7 @@ c = '9' 오류 - 재할당 불가능
 ```
 
 문자열 <-> 숫자
-```
+``` js
 var strNum = '123'
 var num = Number(strNum);
 
@@ -265,39 +265,39 @@ var strNum = num.toString();
 ```
 
 문자열 길이알기
-```
+``` js
 var str = '123';
 str.length; // 3
 ```
 
 문자열에 하위문자열 찾기
-```
+``` js
 var str='123';
 str.indexOf('2'); // 1
 str.indexOf('4'); // -1 즉 -1이 나오면 존재하지 않는것
 ```
 
 문자열 자르기
-```
+``` js
 var str='123';
 str.slice(0,2); // "12"
 ```
 
 문자열 대/소문자 변경
-```
+``` js
 var str='AbC';
 str.toLowerCase(); // abc
 str.toUpperCase(); // ABC
 ```
 
 문자열 일부분 변경
-```
+``` js
 var str='123';
 str.replace('2','7'); // '173'
 ```
 
 문자열 <-> 배열로
-```
+``` js
 var str='a,b,c,d';
 var arr=str.split(',');
 arr // ['a','b','c','d']
@@ -306,7 +306,7 @@ var sstr = arr.join(','); // 'a,b,c,d'
 ```
 
 배열의 끝에 값 넣고 빼기
-```
+``` js
 var arr = ['a','b'];
 arr.push('c');
 arr // ['a','b','c']
@@ -316,7 +316,7 @@ arr // ['a','b']
 ```
 
 배열의 앞에 값 넣고 빼기
-```
+``` js
 var arr = ['a','b'];
 arr.unshift('c');
 arr // ['c','a','b']
@@ -327,14 +327,14 @@ arr // ['a','b']
 
 익명함수 사용법
 주로 이벤트 발생에 사용
-```
+``` js
 myBtn.onClick = function() {
   alert("hi");
 }
 ```
 
 이벤트 핸들러 등록/제거
-```
+``` js
 btn.addEventListener('click', changeBgcolor);
 btn.removeEventListener('click', changeBgcolor);
 ```
@@ -346,7 +346,7 @@ JSON
 특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고  
 다음 코드를 먼저 실행하는 특성  
 ex)
-```
+``` js
 function getData() {
   let data;
   $.get('url', function(response) {
@@ -363,7 +363,7 @@ $.get 은 ajax로 비동기 처리된다.
 CallBack 함수  
 함수를 다른 함수의 인자로 사용하는 것 즉 고차함수  
 위와 같은 상황을 callback 함수로 해결할 수 있다.  
-```
+``` js
 function getData(callbackFunc) {
   $.get('url', function(response) {
     callbackFunc(response);
@@ -378,7 +378,7 @@ Promise
 자바스크립트 비동기 처리에 사용되는 객체  
 비동기 처리를 위해 callback함수를 중첩으로 사용하면 callback 지옥에 빠질 수 있다.  
 따라서 위 코드에 promise를 적용시킬 수 있다.  
-```
+``` js
 function getData(callback) {
   return new Promise(function(resolve, reject) {
     $.get('url', function(response) {
@@ -399,7 +399,7 @@ resolve()를 실행하면 then()을 이용하여 처리 결과 값을 받을 수
 reject()를 실행하면 catch()로 실패 이유를 받을 수 있다.  
 promise의 장점은 여러개의 promise가 연결 가능하다는 점이다.  
 then()메서드를 호출하고 나면 새로운 promise객체가 반환되기 때문이다.
-```
+``` js
 new Promise(function(resolve, reject) {
   setTimeout(function() {
     resolve(1);
@@ -414,3 +414,85 @@ new Promise(function(resolve, reject) {
   console.log(result); // 31
 });
 ```
+
+async/await  
+promise나 callback의 단점을 해소하기 위해 만들어진 문법  
+promise나 callback은 꼬리를 무는 코드가 나올 수 있다.  
+  
+await을 통해 promise객체를 받아올 수 있다.
+``` js
+const variable = await promise;
+```
+
+하지만 await은 반드시 async함수 내에서만 동작한다.  
+``` js
+(async = () => {
+  const condition = true;
+  const promise = new promise((resolve, reject) => {
+    if(condition) {
+      resolve("resolve");
+    } else {
+      reject("reject");
+    }
+  });
+  
+  try {
+    const result = await promise; // promise 객체를 받아 변수에 저장한다
+    console.log(result);
+  } catch (err) {
+    console.error(err);
+  }
+})();
+```
+async/await은 promise처럼 에러 핸들링 기능이 존재하지 않는다.  
+따라서 try/catch문을 이용하여 에러를 핸들링한다.  
+(기존 promise는 .catch()문을 이용하여 에러를 핸들링함)  
+  
+위와같은 방법을 사용하는 이유는  
+callback지옥이나 then지옥의 가능성을 막고,  
+코드가 길어질 수록 async/await을 이용한 코드가 가독성이 뛰어나다.  
+마찬가지로 비동기 코드가 동기코드처럼 읽혀 코드흐름 이해가 간편하다.  
+  
+workers  
+근본적으로 프로그램은 단일쓰레드로 한 번에 한 작업만 수행이 가능하다.  
+worker는 다른 쓰레드에서 작업을 할 수 있는 기능을 제공한다.  
+  
+하지만 쓰레드의 실행 순서는 알 수 없으므로  
+서로의 변수에 접근할 수 없도록 합니다.  
+따라서 worker는 DOM(window, document, 페이지 요소 등)에 엑세스 할 수 없습니다.
+
+``` js
+// main.js
+const worker = new Worker('./worker.js'); // worker 생성
+
+document.querySelector('#generate').addEventListener('click', () => { 
+  const quota = document.querySelector('#quota').value;
+  worker.postMessage({ // worker에 메시지를 전달
+    command: 'generate', 
+    quota: quota // 인수를 JSON 개체로 전달
+  });
+});
+
+worker.addEventListener('message', message => { // worker에 event listener 등록
+  document.querySelector('#output').textContent = `finished generating ${message.data} primes!`;
+}); // 즉 worker가 일을 마치고 결과 데이터를 전달할 수 있도록 함
+```
+
+``` js 
+worker.js // 메인스크립트에서 worker를 생성하자마자 실행됨
+addEventListener("message", message => { // 워커는 메인스크립트로부터 메시지를 기다림
+  if(message.data.command === 'generate') { // 특정 메시지를 받으면 작업을 수행
+    generatePrimes(message.data.quota);
+  }
+});
+
+function generatePrimes(quota) { 
+  ...                          // 작업
+  postMessage(primes.length); // 작업이 끝나면 메인스크립트로 메시지와 인자를 보냄
+}
+```
+위 방법은 dedicated worker입니다.  
+이 외에도  
+Shared workers : 서로 다른 창에서 실행되는 여러 스크립트에서 공유  
+Service workers : 오프라인 상태일 때 웹 어플리케이션이 동작할 수 있도록 리소스를 캐싱  
+이 존재합니다.
