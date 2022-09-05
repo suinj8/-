@@ -1,6 +1,8 @@
 # YESFORM STUDY
 모든 컨텐츠는 
-https://developer.mozilla.org/ko/
+https://developer.mozilla.org/ko/  
+www.tcpschool.com  
+을 기반으로 작성됨  
 
 ## 주석
 ```
@@ -495,4 +497,145 @@ function generatePrimes(quota) {
 이 외에도  
 Shared workers : 서로 다른 창에서 실행되는 여러 스크립트에서 공유  
 Service workers : 오프라인 상태일 때 웹 어플리케이션이 동작할 수 있도록 리소스를 캐싱  
-이 존재합니다.
+이 존재합니다.  
+
+API(Application Programming Interfaces)  
+운영체제나 프로그래밍언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스를 의미한다.  
+하지만 보통 웹에서는 API를 요청, 응답하는데 사용한다.  
++) Web API - 다른 서비스에 요청을 보내고 응답을 받기 위해 정의된 명세 (위키백과)  
+
+Fetch API  
+
+``` js
+fetch(url) // promise객체를 반환 (비동기), url을 인자로 받음
+  .then((response) => { // then을 이용하여 promise객체를 받음
+    if(!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    return response.text(); // response.text()또한 비동기로 promise객체 반환
+  })
+  .then((text) => poemDisplay.textContent = text) // 따라서 response.text()의 객체를 받아 출력
+  .catch((error) => poemDisplay.textContent = `Could not fetch verse: ${error}`); // 에러검출
+```
+
+AJAX(Asynchronous JavaScript And XML)
+서버와 통신하기 위해 XMHttpRequest객체를 사용하는 것을 말함  
+JSON, XML, HTML 등 다양한 포맷을 주고 받을 수 있음  
+이는 전체를 refresh를 하지 않고서도 수행이 가능 => 페이지의 일부분만 업데이트 할 수 있도록 함  
+
+XMLHttpRequest 객체  
+서버와 데이터를 교환할 때 사용  
+``` js
+var variable = new XMLHttpRequest();
+```
+
+open(), send() 메소드  
+open()은 서버로 보낼 Ajax요청의 형식을 설정한다.  
+send()는 Ajax요청을 서버로 전달
+``` js
+open(전달방식, URL주소, 동기여부);
+send() // GET방식
+send(문자열) // POST방식
+
+// GET방식
+httpRequest.open("GET", "url",  true); // true는 기본값, 비동기 방식을 사용하겠다는 뜻
+                                      // false시 동기식으로 작동, 즉 응답을 대기함
+httpRequest.send();
+
+if(httpRequest.readyState == XMLHttpRequest.DONE && httpRequest == 200) {
+  ... // 객체의 현재상태와 서버 상 문서 존재의 유무를 확인가능
+}
+// readyState의 값이 DONE이면 서버에 요청한 데이터 처리가 완료되어 응답할 준비가 완료되었다는 의미
+
+// POST방식 - 데이터를 http헤더에 포함시켜 전송
+httpRequest.open("POST", "url", true);
+httpRequest.setRequestHeader("Content-Type", "application/x-www-form-unlencoded");
+httpRequest.send("city=seoul&zipcode=11111");
+```
++) readyState Property  
+0) UNSENT : XMLHttpRequest 객체 생성됨  
+1) OPENED : open()메서드가 성공적으로 실행  
+2) HEADER_RECEIVED : 모든 요청에 대한 응답이 도착함  
+3) LOADING : 요청한 데이터를 처리중임  
+4) DONE : 요청한 데이터의 처리가 완료되어 응답 준비 완료  
+
++) status Property  
+200) 서버에 문서가 존재  
+404) 서버에 문서가 존재하지 않음  
+
++) onreadystatechange - readyState Property 값이 변할 때마다 자동으로 호출되는 함수를 설정  
+즉 readyState값의 변화에 따라 총 5번 호출됨  
+
+HTTP 헤더 - 요청과 응답은 http 헤더로 수행, 다양한 데이터 포함 가능  
+위의 setRequestHeader메서드를 이용함  
+
+HTTP 응답 헤더  - Ajax는 서버로부터 전달받은 HTTP 응답 헤더 내용을 메서드를 이용하여 확인  
+getAllResponseHeaders() 메서드 - HTTP응답 헤더의 모든 헤더를 문자열로 반환
+getResponseHeader() 메서드 - HTTP응답 헤더 중 인수로 전달받은 이름과 일치하는 헤더의 값을 문자열로 반환  
+``` js
+var httpRequest = new XMLHttpRequest();
+httpRequest.onreadystatechange = function() {
+  if(httpRequest.readystate == XMLHttpRequest.DONE && httpRequest.status == 200) {
+    document.getElementById("text").value = httpRequest.reaponseText;
+    ...
+  }
+};
+
+httpRequest.open("GET","URL",true);
+httpRequest.send();
+```
+  
+Response Text, XML
+``` js
+document.getElementByID("text").innerHTML = httpRequest.responseText; // 텍스트 파일 응답 처리
+document.getElementByID("xml").innerHTML = httpRequest.responseXML; // XML 파일 응답 처리
+```
+
+JQuery - Ajax 프레임워크  
+``` js
+$.ajax({
+  url: "url", // 요청 보낼 서버의 주소
+  data: {name : "홍길동"}, // 요청과 함께 보낼 데이터
+  type: "GET", // HTTP 요청방식
+  dataType: "json" // 서버에서 보내줄 데이터 타입
+})
+.done(function(json)) { // 요청에 성공하면 done()메서드로 전달
+  ...
+}
+.fail(function(xhr, status, errorThrown) { // 요청에 실패하면 fail()메서드로 전달
+  ...
+}
+.always(function(xhr, status) { // 성공 여부와 관계없이 항상 실행
+  ...
+}
+```
+
+$.get(), $.post(), $.load()  
+```
+$(function() {
+  $("#requestBtn").on("click", function() {
+    $.get("url", function(data, status) { // GET방식 이용하여 서버에 HTTP요청 보냄
+      $("#text").html(data + status); // data와 전송 성공 여부 보여줌
+    });
+  });
+});
+
+$(function() {
+  $("#requestBtn").on("click", function() {
+    $.post("url", function(data, status) // POST방식 이용하여 서버에 HTTP요청 보냄
+      { name : "홍길동", age: "20" }, // 서버에 정보를 같이 보냄
+      function(data, status) {
+        $("#text").html(data + status); // data와 전송 성공 여부 보여줌
+      }
+    );
+  });
+});
+
+$(function() {
+  $("#requestBtn").on("click", function() {
+    $("#list").load("url li");
+    // URL 주소에 존재하는 HTML코드에서 <li>요소를 읽은 후에 id가 list인 요소에 배치함
+    // url과 인수는 띄어쓰기로 구분함
+  });
+});
+```
