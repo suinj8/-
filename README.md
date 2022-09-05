@@ -9,6 +9,7 @@ www.tcpschool.com
 HTML : <!-- 주석 -->
 CSS : /* 주석 */
 JS, PHP : //주석 or /* 주석 */
+MySQL : #주석, --(공백)주석, /* 주석 */
 ```
 
 ## HTML
@@ -327,7 +328,7 @@ arr.shift();
 arr // ['a','b']
 ```
 
-익명함수 사용법
+### 익명함수 사용법
 주로 이벤트 발생에 사용
 ``` js
 myBtn.onClick = function() {
@@ -335,16 +336,16 @@ myBtn.onClick = function() {
 }
 ```
 
-이벤트 핸들러 등록/제거
+### 이벤트 핸들러 등록/제거
 ``` js
 btn.addEventListener('click', changeBgcolor);
 btn.removeEventListener('click', changeBgcolor);
 ```
 
-JSON  
+### JSON  
 자바스크립트 객체 문법을 따르는 문자 기반의 데이터 포맷  
 
-비동기 처리  
+### 비동기 처리  
 특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고  
 다음 코드를 먼저 실행하는 특성  
 ex)
@@ -455,7 +456,7 @@ callback지옥이나 then지옥의 가능성을 막고,
 코드가 길어질 수록 async/await을 이용한 코드가 가독성이 뛰어나다.  
 마찬가지로 비동기 코드가 동기코드처럼 읽혀 코드흐름 이해가 간편하다.  
   
-workers  
+### workers  
 근본적으로 프로그램은 단일쓰레드로 한 번에 한 작업만 수행이 가능하다.  
 worker는 다른 쓰레드에서 작업을 할 수 있는 기능을 제공한다.  
   
@@ -499,7 +500,7 @@ Shared workers : 서로 다른 창에서 실행되는 여러 스크립트에서 
 Service workers : 오프라인 상태일 때 웹 어플리케이션이 동작할 수 있도록 리소스를 캐싱  
 이 존재합니다.  
 
-API(Application Programming Interfaces)  
+### API(Application Programming Interfaces)  
 운영체제나 프로그래밍언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스를 의미한다.  
 하지만 보통 웹에서는 API를 요청, 응답하는데 사용한다.  
 +) Web API - 다른 서비스에 요청을 보내고 응답을 받기 위해 정의된 명세 (위키백과)  
@@ -566,7 +567,7 @@ httpRequest.send("city=seoul&zipcode=11111");
 +) onreadystatechange - readyState Property 값이 변할 때마다 자동으로 호출되는 함수를 설정  
 즉 readyState값의 변화에 따라 총 5번 호출됨  
 
-HTTP 헤더 - 요청과 응답은 http 헤더로 수행, 다양한 데이터 포함 가능  
+### HTTP 헤더 - 요청과 응답은 http 헤더로 수행, 다양한 데이터 포함 가능  
 위의 setRequestHeader메서드를 이용함  
 
 HTTP 응답 헤더  - Ajax는 서버로부터 전달받은 HTTP 응답 헤더 내용을 메서드를 이용하여 확인  
@@ -610,7 +611,7 @@ $.ajax({
 }
 ```
 
-기타 JQuery 메서드 - $.get(), $.post(), $.load()  
+### 기타 JQuery 메서드 - $.get() , $.post() , $.load()  
 ``` js
 $(function() {
   $("#requestBtn").on("click", function() {
@@ -639,3 +640,159 @@ $(function() {
   });
 });
 ```
+
+## MySQL
+RDBMS, 오픈소스, 다양한 API제공, 구문은 대소문자 구분 안함(테이블 명, 필드 이름은 구분함)  
+
+DB접속
+``` mysql
+mysql -uroot -p
+후 패스워드 입력
+```
+
+### CREATE
+  
+DataBase 생성, 선택    
+``` mysql
+CREATE DATABASE TEST; // TEST라는 DATABASE 생성
+
+USE TEST; // TEST라는 DATABASE 선택
+```
+
+Table 생성  
+``` mysql
+CREATE TABLE TEST( // TEST라는 TABLE생성
+  ID INT,
+  Name VARCHAR(20),
+  ...
+);
+```
+
+제약조건  
+무결성을 지키기 위해 데이터를 입력받을 때 실행되는 검사 규칙  
+  
+1. NOT NULL : 해당 필드는 NULL값 지정 불가  
+2. UNIQUE : 해당 필드는 서로 다른 값을 가져야만 함
+3. PRIMARY KEY : 해당 필드가 NOT NULL과 UNIQUE특성을 모두 가짐
+4. FOREIGN KEY : 하나의 테이블을 다른 테이블에 의존하게 만듬
+ - ON DELETE, ON UPDATE // 참조되는 테이블에 영향을 받는다
+  -- CASCADE : 참조되는 테이블에서 삭세, 수정되면 참조하는 테이블도 같이 변함
+  -- SET NULL : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블의 데이터는 NULL로 변경
+  -- NOT ACTION : 참조되는 테이블에서 삭제, 수정되어도 참조하는 테이블은 변화없음
+  -- SET DEFAULT : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블은 기본값으로 변경
+  -- RESTRICT : 참조하는 테이블에 데이터가 남아있으면 참조되는 테이블의 데이터를 삭제, 수정 불가능
+5. DEFAULT : 해당 필드의 기본값을 설정
+
+### ALTER
+데이터베이스나 테이블을 변경할 수 있음  
+
+``` mysql
+ALTER DATABASE TEST CHARACTER SET=utf8; // DB의 문자 집합을 변경
+ALTER TABLE TEST ADD Phone INT; // TEST테이블의 Phone이라는 INT형 필드를 추가
+ALTER TABLE TEST DROP Phone; // TEST테이블의 Phone이라는 필드를 삭제
+ALTER TABLE TEST MODIFY COLUMN NAME VARCHAR(30); // TEST테이블의 NAME 필드를 VARCHAR(30)으로 변경
+```
+
+### DROP
+데이터베이스나 테이블을 삭제  
+
+``` mysql
+DROP DATABASE TEST; // TEST라는 데이터베이스 삭제
+DROP TABLE TEST; // TEST라는 테이블 삭제
+TRUNCATE TABLE TEST; // TEST라는 테이블은 남기고 저장된 데이터만 삭제
+```
+
+### INSERT
+테이블에 새로운 데이터를 추가  
+
+``` mysql
+INSERT INTO TEST(ID, Name, Phone) VALUES(0, '홍길동', '010-1111-1111'); // 새로운 레코드 추가
+// 반드시 모든 컬럼을 명시해 줄 필요는 없다
+```
+
+### UPDATE
+테이블의 레코드를 수정  
+```mysql
+UPDATE TEST // 1. TEST테이블에서
+SET ID = 10;  // 3. ID를 10으로 변경한다
+WHERE NAME = "홍길동"; // 2. 이름이 홍길동인 레코드를 찾아
+// 만약 WHERE절을 생략하면 모든 ID값이 10으로 변경됨 
+```
+
+### DELETE
+해당 테이블에서 레코드를 삭제  
+
+```
+DELETE FROM TEST WHERE NAME = "홍길동"; // TEST테이블에서 이름이 홍길동인 레코드를 삭제
+```
+
+### SELECT
+테이블의 레코드를 선택  
+
+```
+SELECT ID // 3. ID 필드를 가져온다.
+FROM TEST // 1. TEST 테이블로부터
+WHERE NAME="홍길동"; // 2. 이름이 홍길동인 레코드의
+
+WHERE절을 이용하여 조건에 맞는 데이터를 가져옴
+
+SELECT *
+FROM TEST; // TEST테이블의 모든 값을 가져옴
+
+SELECT DISTINCT NAME
+FROM TEST; // DISTINCT는 같은 필드에서 중복되는 값이 있으면 한번만 선택되도록 한다
+```
+
+### MySQL Data Type
+1. 숫자  
+2. 문자열  
+3. 날짜와 시간  
+
+숫자 타입  
+정수 - INT, BIGINT ...
+고정 소수점 - DECIMAL(정확하게 실수를 표현하기 위함)
+부동 소수점 - FLOAT, DOUBLE
+비트값 - BIT(바이너리 값 표현)
+
+문자열 타입  
+CHAR - 고정 길이(남은 공간은 공백으로 채움)  
+VARCHAR - 가변 길이(입력된 문자열의 길이만큼만 저장)  
+BLOB - 다양한 크기의 바이너리 데이터를 저장할 수 있는 타입  
+TEXT - VARCHAR와 비슷하지만 기본값을 가질 수 없음, BLOB과 비슷하지만 대소문자 구분
+ENUM - 미리 정의한 집합의 요소 중 하나만 저장할 수 있는 타입, 가독성 높임, 내부적으로 정수로 인식
+SET - 미리 정의한 집합의 요소 중 동시에 여러개를 저장할 수 있는 타입
+``` mysql
+ENUM('single','twin', 'double');
+SET('a','b','c');
+```
+
+날짜와 시간 타입  
+DATE - 날짜를 저장하는 타입 기본형식 'YYYY-MM-DD'  
+DATETIME - 날짜와 시간을 저장하는 타입 'YYYY-MM-DD HH:MM:SS'  
+TIMESTAMP - 날짜와 시간을 나타내는 타임스탬프를 저장하는 타입 // 위 3개 타입은 유효하지 않으면 0으로 저장  
+TIME - 시간을 저장하는 타입 'HH-MM-SS' or 'HHH-MM-SS'  
+YEAR(4) - 연도를 저장  
+
+### 비교연산자
+
+<=> : 모두 NULL이면 참  
+IS : 양쪽 피연산자가 같으면 참 // 보통 오른쪽 피연산자가 불리언 값일 때 사용  
+IS NOT : 양쪽 피연산자가 다르면 참  
+
+### 패턴 매칭(LIKE)  
+와일드카드를 이용하여 매칭  
+
+```
+SELECT * FROM TEST
+WHERE NAME LIKE '장%'; // 장으로 시작하는 모든 이름을 가져옴
+
+와일드카드
+% : 0개 이상의 문자를 대체 
+_ : 1개 이상의 문자를 대체
+즉 '장%'는 '장'도 가능
+'장_'는 '장' 불가능 -> 장으로 시작하는 최소 2글자 이상
+```
+
+복잡한 패턴매칭은 REGEXP 연산자를 이용한다  
+https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/  
+
