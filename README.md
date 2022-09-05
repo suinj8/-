@@ -610,8 +610,8 @@ $.ajax({
 }
 ```
 
-$.get(), $.post(), $.load()  
-```
+기타 JQuery 메서드 - $.get(), $.post(), $.load()  
+``` js
 $(function() {
   $("#requestBtn").on("click", function() {
     $.get("url", function(data, status) { // GET방식 이용하여 서버에 HTTP요청 보냄
