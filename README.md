@@ -675,13 +675,13 @@ CREATE TABLE TEST( // TEST라는 TABLE생성
 2. UNIQUE : 해당 필드는 서로 다른 값을 가져야만 함
 3. PRIMARY KEY : 해당 필드가 NOT NULL과 UNIQUE특성을 모두 가짐
 4. FOREIGN KEY : 하나의 테이블을 다른 테이블에 의존하게 만듬
- - ON DELETE, ON UPDATE // 참조되는 테이블에 영향을 받는다
-  -- CASCADE : 참조되는 테이블에서 삭세, 수정되면 참조하는 테이블도 같이 변함
-  -- SET NULL : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블의 데이터는 NULL로 변경
-  -- NOT ACTION : 참조되는 테이블에서 삭제, 수정되어도 참조하는 테이블은 변화없음
-  -- SET DEFAULT : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블은 기본값으로 변경
-  -- RESTRICT : 참조하는 테이블에 데이터가 남아있으면 참조되는 테이블의 데이터를 삭제, 수정 불가능
-5. DEFAULT : 해당 필드의 기본값을 설정
+ - ON DELETE, ON UPDATE // 참조되는 테이블에 영향을 받는다  
+  -- CASCADE : 참조되는 테이블에서 삭세, 수정되면 참조하는 테이블도 같이 변함  
+  -- SET NULL : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블의 데이터는 NULL로 변경  
+  -- NOT ACTION : 참조되는 테이블에서 삭제, 수정되어도 참조하는 테이블은 변화없음  
+  -- SET DEFAULT : 참조되는 테이블에서 삭제, 수정되면 참조하는 테이블은 기본값으로 변경  
+  -- RESTRICT : 참조하는 테이블에 데이터가 남아있으면 참조되는 테이블의 데이터를 삭제, 수정 불가능  
+5. DEFAULT : 해당 필드의 기본값을 설정  
 
 ### ALTER
 데이터베이스나 테이블을 변경할 수 있음  
@@ -745,22 +745,22 @@ FROM TEST; // DISTINCT는 같은 필드에서 중복되는 값이 있으면 한�
 
 ### MySQL Data Type
 1. 숫자  
-2. 문자열  
-3. 날짜와 시간  
+2. 문자열    
+3. 날짜와 시간    
 
 숫자 타입  
-정수 - INT, BIGINT ...
-고정 소수점 - DECIMAL(정확하게 실수를 표현하기 위함)
-부동 소수점 - FLOAT, DOUBLE
-비트값 - BIT(바이너리 값 표현)
+정수 - INT, BIGINT ...  
+고정 소수점 - DECIMAL(정확하게 실수를 표현하기 위함)  
+부동 소수점 - FLOAT, DOUBLE  
+비트값 - BIT(바이너리 값 표현)  
 
 문자열 타입  
 CHAR - 고정 길이(남은 공간은 공백으로 채움)  
 VARCHAR - 가변 길이(입력된 문자열의 길이만큼만 저장)  
 BLOB - 다양한 크기의 바이너리 데이터를 저장할 수 있는 타입  
-TEXT - VARCHAR와 비슷하지만 기본값을 가질 수 없음, BLOB과 비슷하지만 대소문자 구분
-ENUM - 미리 정의한 집합의 요소 중 하나만 저장할 수 있는 타입, 가독성 높임, 내부적으로 정수로 인식
-SET - 미리 정의한 집합의 요소 중 동시에 여러개를 저장할 수 있는 타입
+TEXT - VARCHAR와 비슷하지만 기본값을 가질 수 없음, BLOB과 비슷하지만 대소문자 구분  
+ENUM - 미리 정의한 집합의 요소 중 하나만 저장할 수 있는 타입, 가독성 높임, 내부적으로 정수로 인식  
+SET - 미리 정의한 집합의 요소 중 동시에 여러개를 저장할 수 있는 타입  
 ``` mysql
 ENUM('single','twin', 'double');
 SET('a','b','c');
@@ -841,7 +841,7 @@ ON TEST // TEST테이블에서 TESTIDX삭제
 
 LENGTH() - 문자열 길이 반환  
 CONCAT() - 입력받은 문자열을 모두 합침, 하나라도 NULL이면 NULL출력  
-LOCATE() - 특정 문자열이 나타나는 위치를 찾음(단, MySQL은 문자열의 첫 문자의 인덱스를 1부터 계산!)
+LOCATE() - 특정 문자열이 나타나는 위치를 찾음(단, MySQL은 문자열의 첫 문자의 인덱스를 1부터 계산!)  
 ``` mysql
 SELECT LOCATE('abc','ababcDEFabc'), // 3
 LOCATE('abc','ababcDEFabc',4); // 9 세번째 인수는 특정 문자열을 찾기 시작할 인덱스 지정 즉 4번째부터 찾기 시작
@@ -852,7 +852,7 @@ SELECT LEFT('abcd', 2), // ab
 RIGHT('abcd',2); // cd
 ```
 LOWER(), UPPER() - 입력받은 문자열을 모두 소문자/대문자로 바꿈  
-REPLACE() - 전달받은 문자열에서 특정 문자열을 찾아 대체 문자열로 교체
+REPLACE() - 전달받은 문자열에서 특정 문자열을 찾아 대체 문자열로 교체  
 ``` mysql
 SELECT REPLACE('abcd','ab','kk'); // kkcd
 ```
@@ -870,8 +870,8 @@ tcpschool.com/mysql/mysql_builtInFunction_dateTime
 
 ### 그룹함수
 COUNT() - 만족하는 총 개수 반환  
-MIN(), MAX() - 선택된 필드의 최소, 최대값 반환   
-SUM() - 숫자 필드에 저장된 값의 총 합 반환   
+MIN(), MAX() - 선택된 필드의 최소, 최대값 반환  
+SUM() - 숫자 필드에 저장된 값의 총 합 반환  
 AVG() - 숫자 필드에 저장된 값의 평균 반환  
   
 ### GROUP BY 절
@@ -884,3 +884,11 @@ GROUP BY AGE // 2. AGE로 그룹화된 결과 집합 중
 HAVING 조건; // 3. 조건에 맞는것의
 ```
 +) HAVING 절을 이용하여 GROUP BY로 반환되는 집합 조건을 설정 가능  
+
+## MySQL과 PHP
+동작 방식  
+1. 브라우저(사용자)가 웹서버에 웹페이지를 요청
+2. 웹서버는 PHP파서에 스크립트 실행 요청
+3. PHP파서는 DB와 작업
+4. 작업 결과를 웹서버에 전달
+5. 웹서버가 요청에 응답
