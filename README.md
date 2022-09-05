@@ -892,3 +892,17 @@ HAVING 조건; // 3. 조건에 맞는것의
 3. PHP파서는 DB와 작업
 4. 작업 결과를 웹서버에 전달
 5. 웹서버가 요청에 응답
+
+간단한 MySQL연결, Query 사용하기
+``` php
+<?php
+$connect = mysqli_connect(서버이름, 사용자명, 비밀번호, DB명);
+if(!$connect) { echo "서버 연결 실패"; }
+if(mysqli_query($connect, "Query" )) {
+    echo "Query 성공";
+  } else {
+    echo "Query 실패";
+  }
+  mysqli_close($connect);
+?>
+```
