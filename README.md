@@ -796,3 +796,28 @@ _ : 1개 이상의 문자를 대체
 복잡한 패턴매칭은 REGEXP 연산자를 이용한다  
 https://www.geeksforgeeks.org/mysql-regular-expressions-regexp/  
 
+### 서브쿼리
+서브쿼리란 다른 쿼리 내부에 포함되어 있는 SELECT문을 의미함  
+``` mysql
+SELECT ID, ROOMNUM // 6. ID와 방번호를 RESERVE테이블에서 가져온다.
+FROM RESERVE // 4. RESERVE 테이블의 
+WHERE NAME IN // 5. 이름과 가져온 컬럼과 비교하여 일치하는 데이터의
+(SELECT NAME // 3. 이름 컬럼을 가져와서
+From CUSTOMER // 1. CUSTOMER 테이블에서
+WHERE ADDRESS="서울"); // 2. 주소가 서울인 것들의
+```
+
+### INDEX
+인덱스는 테이블에서 원하는 데이터를 쉽고 빠르게 찾기 위해 사용함  
+인덱스를 이용하면 테이블 전체를 읽지 않아도 되므로, 처리가 빨라짐  
+따라서 보통 검색이 자주 사용되는 테이블에 이용  
+
+인덱스 생성  
+```
+CREATE INDEX TESTIDX
+ON TEST (NAME); // TEST테이블의 NAME 필드에 TESTIDX라는 INDEX를 생성
+
+
+SHOW INDEX
+FROM TEST; // TEST테이블의 인덱스를 확인할 수 있다
+```
