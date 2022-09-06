@@ -183,3 +183,100 @@ $("input[value='jquery']").removeProp("checked"); // checked property삭제
 2. removeClass() : 클래스 제거
 3. hasClass() : 클래스 확인
 4. toggleClass() : 해당 클래스가 존재하면 제거, 존재하지 않으면 생성
+
+### 이벤트, 이벤트 핸들러
+이벤트 핸들러를 등록하여 이벤트를 처리함  
+  
+### 이벤트 연결  
+.on() : 특정요소를 이벤트에 바인딩함 
+1. 선택한 요소에 어떤 타입이라도 연결 가능  
+2. 하나의 이벤트 핸들러에 여러개의 이벤트 동시에 연결 가능  
+3. 선택한 요소에 여러개이 이벤트 핸들러와 여러개의 이벤트 같이 연결 가능  
+4. 사용자 지정 이벤트를 위해 이벤트 핸들러로 데이터를 넘길 수 있음  
+5. 차후에 다루게 될 요소를 이벤트에 연결  
+
+``` js
+$("button").on({
+  mouseenter: function() {
+    $("#text").append("마우스 진입<br>");
+  },
+  click: function() {
+    $("#text").append("마우스 클릭<br>");
+  },
+  mouseleave: function() {
+    $("#text").append("마우스 나감<br>");
+  }
+});
+```
+
+.one() : 이벤트 핸들러가 한번 실행되고 더는 실행되지 않음(1회용)  
+.off() : 이벤트와의 연결을 제거함  
+
+### 이벤트 위임
+이벤트 위임을 통해 다수의 요소에 공통으로 적용되는 이벤트 핸들러를 공통된 조상 요소에 한번만  
+연결하여 동작할 수 있도록 한다.  
+
+``` js
+$("ul").on("click", "a", function(e) { // on()메서드는 해당 요소에 첫 번째 인수로 전달받은 이벤트가 전달되었을 때,
+                                       // 요소가 두 번째 인수로 전달받은 선택자와 같은지 검사, 같으면 핸들러 실행
+  e.preventDefault();
+  $("#text").append("링크 동작안함");
+});
+```
+
+### 이벤트 메서드
+tcpschool.com/jquery/jq_event_method  
+
+### 요소의 표시와 숨김
+이펙트 효과는 기본 설정으로 사용 가능하며, animate()메서드를 이용하여 변경해서 사용할 수도 있다.  
+
+.hide() : 요소를 순간적으로 사라지게 함 // CSS display 속성이 none으로 설정되어 레이아웃에 영향을 주지않음 
+.show() : 나타나게 함
+
+```
+$("#text).hide(fast); // id가 text인 요소 숨김
+$("#text).show(2000); // 밀리초를 넣거나 slow, fast를 넣을 수 있다
+$("#text).toggle(2000); // 나타나 있는 상태면 hide, 사라진 상태면 show동작
+```
+
+### Fade 효과
+CSS opacity 속성값 변경
+1. .fadeIn() : 서서히 나타나게 함 // 시간지정 가능  
+2. .fadeOut() : 서서히 사라지게 함  // 시간지정 가능  
+3. .fadeToggle() : 나타나있는 상태면 fadeIn, 사라진 상태면 fadeOut  // 시간지정 가능  
+4. .fadeTo() : opacity 속성값 직접 설정 가능 // 시간지정, opacity값 지정  
+
+### Slide 효과
+height 값 빠르게 변화
+1. slideUp() : 서서히 올라감  
+2. slideDown() : 서서히 내려옴  
+3. sildeToggle() : 나타나 있으면 slideUp, 사라진 상태면 slideDown  
+
+### Effect 제어
+1. .delay() : 이펙트 효과 사이 지연시간 설정  
+2. .stop() : 이펙트 효과 즉시 중지 // 중간에 멈춤  
+3. .finish() : 이펙트 효과 즉시 중지 후 큐까지 모두 제거 // 바로 결과로 넘어감  
+
+``` js
+$("#divBox").fadeOut(500).delay(1000).fadeIn(2000); // 0.5초에 걸쳐 사라짐, 1초 대기, 2초에 걸쳐 나타남
+$("#divBox").stop(); // id가 divBox요소에서 실행중인 모든 이펙트 중지
+$("#divBox").finish(); // 즉시 중지 후 큐까지 모두 제거
+```
+
++) jquery.fx 객체  
+tcpschool.com/jquery/jq_effect_jqueryfx  
+  
+### 사용자 정의 이펙트  
+.animate() 메서드를 이용하여 원하는 이펙트 효과 정의  
+$(선택자).animate(프로퍼티[,지속시간][,시간당속도함수][,콜백함수]);  
+
+``` js
+$("#divBox").aniamte(
+  {
+    left: "+=100", // 오른쪽으로 100px이동
+    opacity: 0.2   // 투명도를 0.2로
+  }, 500, function() { // 0.5초에 걸쳐
+    $("#text").html("사용자 정의 이펙트 실행!"); // 콜백함수는 동작 이후 작동
+  }
+);
+```
