@@ -1,4 +1,4 @@
-# jQuery, PHP  
+# jQuery
 
 ## jQuery
 
@@ -362,3 +362,4 @@ $(function() {
 tcpschool.com/jquery/jq_utilityMethod_isMethod  
 ### 그외 기타 유틸리티 메서드  
 tcpschool.com/jquery/jq_utilityMethod_ectMethod  
+
