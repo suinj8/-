@@ -66,7 +66,7 @@ var_dump($x == $y) // false
 php.net/manual/en/language.types.string.php  
 
 ### Array 배열
-
+map으로 구성된 순서가 있는 집합  
 ``` php
 <? php
 array(
@@ -149,10 +149,110 @@ enum Suit {
 ?>
 ```
 
-### NULL
-null은 유일타입 null로 할당되거나, 어떤 값도 설정되지 않았거나  
+## 변수
+
+### 전역변수(global variable)
+``` php
+<?php
+$var = 10;
+function varFunc() {
+  global $var; // 함수 내부에서 사용할 전역변수 명시
+  echo "전역변수 사용하기{$var}.";
+}
+varFunc();
+?>
+```
+
+### 슈퍼글로벌
+tcpschool.com/php/php_basic_variableType  
+
+### 정적변수(static variable)
+함수의 호출이 종료되어도 메모리상에서 지워지지 않는 변수  
+``` php
+<? php
+function f() {
+  static $x = 0;
+  echo "x값은 {$x} 입니다.";
+  $x++;
+}
+f(); // 0
+f(); // 1
+f(); // 2
+?>
+```
+
+### 상수(constant)
+일단 한번 선언되면 데이터 변경, 해제 불가  
+define()함수를 이용하여 선언  
+``` php
+define(상수이름, 상수값, 대소문자구분여부);
+<? php
+define("PHP", "PHP상수선언") // 대소문자 구분(default - false)
+echo PHP; // PHP상수선언
+?>
+```
+
+마법상수(magic constants)  
+php 내부에서 미리 정의된 상수  
+tcpschool.com/php/php_basic_constants  
 
 
+### 타입 변환 
+타입 강도는 매우 약하고, 타입이 동적으로 
+타입 강도는 매우 약하고, 타입이 동적으로 결정됨
+
+강제 타입 변환  
+()를 이용하여 강제로 타입 변환이 가능하다  
+``` php
+<?php
+$var_01 = 10;
+var_dump($var_01); // int(10)
+$var_02 = (boolean) $var_01; // int형 var_01을 강제로 boolean형으로 변환
+//0이 아닌 정수이므로 true
+var_dump($var_02); // bool(true) 
+?>
+```
+가변 변수(variable variables)  
+변수의 이름을 동적으로 바꾼 변수  
+해당 변수의 값을 다른 변수의 이름으로 취급한다.  
+
+``` php
+<?php
+$PHP = "HTML";
+$HTML = "CSS";
+$CSS = "JavaScript";
+
+echo $PHP; // HTML
+echo $$PHP; // CSS
+echo $$$PHP; // JavaScript;
+?>
+```
+
+### 연산자(Operator)
+
+산술연산자  
++, -, *, /, %, **(왼쪽 값에 오른쪽 값을 제곱, PHP 5.6부터)  
+  
+연산자 우선순위(Precedence), 결합순서(associativity)  
+tcpschool.com/php/php_operator_arithmetic  
+
+배열 합집합 연산자(array union operator)  
+왼쪽 피연산자의 키값을 유지하고 거기에 맞춰 오른쪽 피연산자 배열을 합치는 방식
+``` php
+<?php
+$arr1 = array("1st" => "PHP", "2nd" =>"MYSQL");
+$arr2 = array("1st" => "HTML", "2nd" =>"CSS", "3rd" =>"javascript");
+
+$result = $arr1 + $arr2; // [PHP, MYSQL, javascript]
+?>
+// 왼쪽이 기준이므로 2번배열의 HTML, CSS는 무시된다.
+```
+
+instaneof연산자  
+1. 해당 변수가 클래스에서 생성된 객체인지 확인  
+2. 해당 변수가 부모 클래스 에서 상속받은 클래스인지 확인  
+3. 해당 변수가 클래스의 인스턴스인지 아닌지 확인  
+4. 인터페이스로 구현한 클래스의 객체 인스턴스 인지 아닌지 확인  
 
 
 
