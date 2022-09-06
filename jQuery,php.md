@@ -344,3 +344,21 @@ $(function() {
 
 +) 추가적인 Ajax 메서드
 tcpschool.com/jquery/jq_ajax_method  
+
+### Ajax와 Form 요소  
+Ajax는 비동기 통신을 위해 form으로 입력받은 데이터를 직렬화 하여 전송함
+.serialize() : HTML form 요소를 통해 입력된 데이터를 쿼리 문자열로 변환
+.serializeArray() : 문자열이 아닌 배열 객체로 변환
+``` js
+$(function() {
+  $("form").on("submit", function(e) { // form요소의 submit 이벤트 발생 시
+    event.preventDefault();  // 예시를 위해 서버 전송을 막고
+    $("#text").html($(this).serialize()); // 데이터를 직렬화 하여 나타냄
+  });
+});
+```
+
+### 타입 검사 메서드
+tcpschool.com/jquery/jq_utilityMethod_isMethod  
+### 그외 기타 유틸리티 메서드  
+tcpschool.com/jquery/jq_utilityMethod_ectMethod  
