@@ -233,7 +233,7 @@ tcpschool.com/jquery/jq_event_method
 .hide() : 요소를 순간적으로 사라지게 함 // CSS display 속성이 none으로 설정되어 레이아웃에 영향을 주지않음 
 .show() : 나타나게 함
 
-```
+``` js
 $("#text).hide(fast); // id가 text인 요소 숨김
 $("#text).show(2000); // 밀리초를 넣거나 slow, fast를 넣을 수 있다
 $("#text).toggle(2000); // 나타나 있는 상태면 hide, 사라진 상태면 show동작
@@ -283,3 +283,64 @@ $("#divBox").aniamte(
 
 그 외 적용 가능 속성들  
 tcpschool.com/jquery/jq_effect_customEffect  
+
+### Ajax(Asynchronous JavaScript and XML)
+웹페이지를 전부 다시 로딩하는 것이 아닌 일부만 갱신할 수 있도록 해줌  
+Ajax 프레임 워크 -> JQuery  
+
+### HTTP 요청 
+GET, POST방식 사용  
+  
+$.get(URL주소[,콜백함수]);  
+``` js
+$(function() {
+  $(#requestBtn").on("click",function() {
+    $.get("url...", // url
+      { species: "개", name: "복실이", age:4 }, // 서버가 필요한 정보를 같이 보냄
+      function() { // 콜백함수
+        $("#text").html(data + "<br>" + status);
+      }
+    );
+  });
+});
+```
+$.post(URL주소[,데이터][,콜백함수]); // 형식은 get과 유사  
+
+### ajax()메서드  
+$.ajax(URL주소[,옵션]);  
+``` js
+$.ajax({
+  url: "url", // 요청할 url
+  data: { name: "홍길동" }, // 요청과 함께 보낼 데이터
+  method: "GET" // 요청방식 or POST
+  dataType: "json" // 서버에서 보내줄 데이터 타입
+})
+.done(function(json) { // 요청 성공 시 실행
+  $("<h1>").text(json.title).appendTo("body");
+  $<"<div class=\"content\">").html(json.html).appendTo("body");
+})
+.fail(function(xhr, status, errorThrown) { // 요청 실패 시 관련된 정보가 전달됨
+  $("#text").html("오류 발생<br>")
+  .append("오류명: " + errorThrown + "<br>")
+  .append("상태: " + status);
+})
+.always(function(xhr, status) { // 성공 여부와 관계없이 항상 실행
+  $("#text").html("요청 완료<br>");
+});
+```
+
+### load 메서드
+선택한 요소에서 호출하는 유일한 JQuery 메서드  
+load는 서버에서 데이터를 읽은 후 읽어들인 HTML 코드를 선택한 요소에 배치  
+URL과 선택자를 같이 전송하면, HTML코드 중 선택자와 일치하는 요소만 배치함  
+
+``` js
+$(function() {
+  $("#requestBtn").on("click", function() {
+    $("#list").load("url li"); // url 주소에 존재하는 HTML코드에서 li와 일치하는 요소를 읽어 list요소에 배치
+  });
+});
+```
+
++) 추가적인 Ajax 메서드
+tcpschool.com/jquery/jq_ajax_method  
