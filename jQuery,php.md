@@ -280,3 +280,6 @@ $("#divBox").aniamte(
   }
 );
 ```
+
+그 외 적용 가능 속성들  
+tcpschool.com/jquery/jq_effect_customEffect  
