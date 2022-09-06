@@ -234,9 +234,9 @@ tcpschool.com/jquery/jq_event_method
 .show() : 나타나게 함
 
 ``` js
-$("#text).hide(fast); // id가 text인 요소 숨김
-$("#text).show(2000); // 밀리초를 넣거나 slow, fast를 넣을 수 있다
-$("#text).toggle(2000); // 나타나 있는 상태면 hide, 사라진 상태면 show동작
+$("#text").hide(fast); // id가 text인 요소 숨김
+$("#text").show(2000); // 밀리초를 넣거나 slow, fast를 넣을 수 있다
+$("#text").toggle(2000); // 나타나 있는 상태면 hide, 사라진 상태면 show동작
 ```
 
 ### Fade 효과
