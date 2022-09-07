@@ -906,3 +906,43 @@ if(mysqli_query($connect, "Query" )) {
   mysqli_close($connect);
 ?>
 ```
+
+## MySQL Trigger
+어떤 이벤트가 발생했을 때, 자동으로 실행되게 하는 것  
+DML 이벤트 발생 시 작동  
+테이블에 부착됨  
+
+### 행 트리거  
+테이블 내부 영향을 받은 행 각각에 대해 실행  
+변경 전/후를 OLD/NEW라는 가상 줄 변수를 사용하여 읽을 수 있다.  
++) delete는 OLD만, insert는 NEW만 존재한다.  
+
+### 문장 트리거  
+한번만 실행됨  
+행 수에 관계없이 각 트랜잭션에 대해 명령문 레벨 트리거가 한번 실행됨  
+BEFORE, AFTER로 트리거가 실행되는 시기를 지정한다.  
++) INSTEAD OF 원래 문장 대신 트리거가 동작  
+
+
+``` mysql
+CREATE TRIGGER 트리거명
+BEFORE/AFTER 명령 키워드 on 테이블명
+FOR EACH ROW
+BEGIN
+  처리정보
+END
+
+ex)
+DELIMITER $$
+
+CREATE TRIGGER backup_trigger // 트리거 정의
+BEFORE DELETE ON data // data 테이블에서 값이 지워지기 전
+FOR EACH ROW //  각 행에 대해
+BEGIN
+  INSERT INTO backup (col1, col2, ... ) VALUES (val1, val2, ...); // 값을 넣음
+END;
+
+DELIMITER ;
+$$
+  
+```
