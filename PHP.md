@@ -255,4 +255,195 @@ instaneof연산자
 4. 인터페이스로 구현한 클래스의 객체 인스턴스 인지 아닌지 확인  
 
 
+### 사용자 정의 함수(user defined function)
+함수의 이름은 대소문자를 구분하지 않습니다.  
+PHP는 함수 오버로딩을 지원하지 않습니다.
+``` php
+function 함수명(매개변수1, 매개변수2, ... ) {
+  // do something
+}
+```
 
+### 함수의 값 반환  
+return문을 이용하여 키워드를 명시할 수 있다.  
+PHP7부터는 반환값 타입을 명시할 수 있다.
+``` php
+function sum($x, $y) : float {
+  return $x + $y;
+}
+
+deflare(strict_types = 1); // 엄격한 타입모드
+// 이 모드를 사용하면 타입 자동변환이 되지 않아 오류가 발생함
+```
+
+### 값 전달 방식
+Pass by Value  
+인수를 함수에 전달하면 값을 복사하여 저장  
+함수 내부에서 인수 값을 바꿔도 원본 데이터는 영향 없음  
+ 
+Pass by Reference  
+참조 전달을 사용하기 위해 변수 앞에 &붙임  
+참조 변수를 매개변수에 전달  
+함수 내부에서 인수 값을 바꾸면 원본 데이터도 바뀜  
+
+Default 매개변수  
+대입연산자를 이용하여 설정  
+``` php
+function($a1, $a2 = 0, $a3 = 0) {
+   // do_something
+}
+// a1은 반드시 전달받아야 하고
+// a2, a3는 전달받지 못하면 0으로 자동 설정된다
+```
+
+가변 길이 인수 목록(variable-length argument list)  
+전달받을 인수의 개수를 정하는것이 아닌, 호출할 때마다 유동적으로 인수를 넘기는 기능  
+``` php
+PHP 5.5이하 버전
+가변 길이 변수 목록이 배열 형태로 들어온다.
+function sum() {
+  $sum = 0;
+  foreach(func_get_args() as $n) {
+    $sum += $n;
+  }
+  return $sum;
+}
+
+PHP5.6 이상
+$sum 배열에 가변 인수 목록이 들어온다.
+function sum(...$num) {
+  $sum = 0;
+  foreach($sum as %n) {
+    $sum += $n;
+  }
+  return $sum;
+}
+```
+
+### 함수의 활용
+
+조건적인 함수(conditional function)  
+특정 조건을 만족할 때만 선언되는 함수  
+``` php
+if($condition) { // condition조건을 만족해야만
+  function func() { // func가 선언되어 사용가능해진다.
+    echo "함수사용 가능!";
+  }
+}
+```
+
+함수 내부의 함수(function within function)  
+``` php
+function a() {
+  function b() {
+    echo "a가 호출되어야 b사용가능!";
+  }
+}
+// a를 한번도 호출하지 않은 채로 b를 호출하면 에러
+// 하지만 php함수는 모두 전역 함수이므로 선언되었다면 사용가능
+```
+
+가변함수(variable function)  
+변수를 샤용하여 함수를 호출하는 것  
+변수에 ()를 붙이면 해당 값에 해당하는 함수가 호출된다  
+```
+function f() {
+  echo "f함수임";
+}
+
+function g($para) {
+  echo "g함수임{$para}";
+}
+$func = "first";
+$func(); // f함수임
+$func = "second";
+$func(10); // g함수임10
+```
+
+### 변수 관련 함수
+  
+함수의 타입 변경  
+  
+gettype()함수를 사용하면 타입을 알 수 있다.  
+settype()함수를 사용하면 전달받은 변수의 타입을 변경한다.  
+``` php
+$x = 5;  
+settype($x, "string");  
+echo gettype($x); // string  
+```
+하지만 gettype()은 느리기 때문에  
+변수 타입 검사는 다른 함수를 이용한다  
+tcpschool.com/php/php_builtInFunction_variable  
+  
+함수의 상태 변경  
+  
+isset()함수는 전달받은 변수가 선언되어 있는지를 검사한다.  
+변수가 존재하면 true, 존재하지 않으면 false를 리턴한다.  
+  
+unset()함수는 전달받은 변수를 제거한다.  
+  
+empty()함수는 변수가 비어있는지 검사한다   
+비어있으면 true, 아니면 false를 리턴한다.  
+비어있다고 인식하는 것  
+정수0, 실수0.0, 문자열"0", 빈 문자열, null, false, 빈 배열, 초기화 되지 않은 변수  
+  
+특정 타입으로 변경  
+intval() : 전달받은 변수에 해당하는 정수를 반환  
+floatval() : 전달받은 변수에 해당하는 실수를 반환
+strval() : 전달받은 변수에 해당하는 문자열 반환  
+``` php
+$x = "123.567abc";
+echo intval($x); // 123
+echo floatval($x); // 123.567
+echo strval($x); // 123.567abc
+```
+
+### 배열 관련 함수 
+배열 요소 개수  
+count(), size() // 배열의 저장된 요소 개수 반환  
+array_count_values() // 전달받은 배열을 확인하여 각 값이 몇번 등장하는지 확인  
+// 그 후 배열 요소 값을 key로 빈도를 value로 하는 배열을 반환
+``` php
+$arr = array(1,2,3,3,1,2);
+echo "배열 요소 수는".count($arr)."입니다"; // 6
+echo "배열 요소 수는".sizeof($arr)."입니다"; // 6
+$acv = array_count_values($arr) // 1 : 2, 2 : 2, 3 : 3
+```
+
+배열 탐색  
+current(), post() : 배열 포인터가 현재 가리키고 있는 요소 반환  
+next() : 포인터 하나 이동시키고 요소 반환  
+prev() : 포인터를 뒤로 하나 이동시키고 요소 반환  
+each() : 현재 가리키는 요소를 반환하고 앞으로 하나 이동  
+reset() : 첫 요소로 이동하고 해당 값 반환  
+end() : 마지막 요소로 이동하고 해당 값 반환  
+
+배열의 정렬  
+sort() : 정렬기준에 맞추어 정렬  
+SORT_NUMERIC 배열을 숫자로 비교, SORT_STRING은 문자열로 비교  
+대소문자를 구분하며 대문자가 앞쪽으로 정렬  
+성공시 true, 실패시 false리턴  
+``` php
+$arr = array(15, 2, 1, 21, 121); 
+sort($arr,SORT_NUMERIC); // 1, 2, 15, 21, 121
+sort($arr,SORT_STRING); // 1, 121, 15, 2, 21
+```
+
+연관 배열은 키와 요소값으로 따로 정렬 가능  
+ksort() : 각 요소의 키를 기준으로 정렬  
+asort() : 각 요소의 값을 기준으로 정렬  
+
+요소 재배치  
+shuffle() : 배열 요소를 섞은 뒤 무작위로 재배치  
+array_reverse() : 역순으로 바꾸어 반환  
+  
+### 문자열 관련 함수
+
+문자열 길이  
+strlen() : 문자열 길이 반환  
+strcmp() : 두 문자열 비교  
+strncasecmp() : 대소문자 구분하지 않고 비교  
+strstr() : 처음으로 일치하는 부분을 포함하여 뒤로 다 반환 없으면 false  
+strrchr() :  마지막으로 일치하는 부분을 포함하여 뒤로 다 반환 없으면 false  
+strpos() : 처음으로 일치하는 부분의 시작 인덱스 반환
+strrpos() : 마지막으로 일치하는 부분의 시작 인덱스 반환
