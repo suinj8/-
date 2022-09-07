@@ -447,3 +447,145 @@ strstr() : 처음으로 일치하는 부분을 포함하여 뒤로 다 반환 �
 strrchr() :  마지막으로 일치하는 부분을 포함하여 뒤로 다 반환 없으면 false  
 strpos() : 처음으로 일치하는 부분의 시작 인덱스 반환
 strrpos() : 마지막으로 일치하는 부분의 시작 인덱스 반환
+substr() : 전달받은 길이만큼 추출하여 반환  
+``` php
+$str = "Hello, World";
+echo substr($str, 3); // lo, World! 3번인덱스부터 뒤로 출력
+echo substr($str, -3); // ld! 뒤에서 3개 출력
+echo substr($str, 1, 5); // ello, 1번인덱스부터 5개 출력
+echo substr($str, 1, -3); // ello, Wor 1번인덱스부터 뒤에서 3개 제외하고 출력
+```
+strtolower() : 모두 소문자로 변경  
+strtoupper() : 모두 대분자로 변경  
+ucfirst() : 첫 문자만 대문자로 변경  
+ucwords() : 첫 문자만 대문자로 변경  
+  
+explode() : 특정 문자를 기준으로 문자열을 나누어 배열로 반환  
+implode(), join() : 특정 문자를 사용하여 하나로 합친 문자열 반환  
+strtok() : 특정 문자를 기준으로 토큰화 // 다음 토큰은 인자로 특정 문자를 전달한다
+``` php
+$str = "a,b,c";
+$array = explode(',',$str);
+echo $array[0]; // a
+echo $array[1]; // b
+echo $array[2]; // c
+
+$str2 = implode('!', $array);
+echo $str2 // a! b! c!
+
+$token = strtok($str2, '!');
+echo $token; // a
+$token = strtok('!');
+echo $token; // b
+$token = strtok('!');
+echo $token; // c
+```
+str_replace() : 해당하는 문자열을 모두 찾고 대체 문자열로 교체  
+substr_replace() : 해당 문자열에서 특정 위치의 문자를 대체 문자열로 교체  
+``` php
+$str = "hello, world!";
+echo str_replace('o','*',$str); // hell*, w*rld! 문자열의 모든 o를 *로 교체
+echo substr_replace($str,'*',2); // he* 2번인덱스부터 끝까지 *로 교체
+echo substr_replace($str,'*',-2); // hello, worl* 뒤에서 두번째 문자부터 끝까지 *로 교체
+echo substr_replace($str,'*',2,4); // he* world! 2번 인덱스부터 네 글자를 *로 교체
+echo substr_replace($str,'*',2,-4); // he*rld! 2번인덱스부터 뒤에서 다섯번째 문자까지 *로 대체
+echo substr_replace($str,'*',2,0); // he*llo, world! 2번째 문자뒤에 *을 삽입함
+```
+ltrim() : 앞부분 공백 제거  
+rtrin(), chop() : 뒷부분공백 제거  
+trim() : 앞, 뒤 공백 제거  
+
+### 날짜와 시간 관련 함수
+tcpschool.com/php/php_builtInFunction_dateTime  
+
+### 수학 관련 함수  
+max() : 가장 큰 수 반환  
+min() : 가장 작은 수 반환  
+floor() : 전달받은 값중 같거나 작은 수 중 가장 큰 정수 반환(내림)  
+ceil() : 전달받은 값중 같거나 큰 수 중 가장 큰 정수 반환(올림)  
+round() : 반올림  
+pow() : 거듭제곱  
+exp() : e의 거듭제곱  
+log() : 자연로그 값  
+abs() : 절대값 반환  
+rand() : 0보다 크거나 같고 getrandmax()함수의 반환값(2147483647)보다 작은 정수를 무작위로 생성하여 반환  
+
+### POSIX 정규표현식(Regular Expression) 
+정규표현식 리터럴  
+/검색패턴/플래그  
+preg_match(패턴, 문자열, [반환할 값 저장할 배열])  
+해당하는 값을 찾으면 즉시 중단, 찾으면 1, 없으면 0 반환  
+간단한 패턴 검색은 reg_match('/abc/', $str); 정확히 abc인것을 찾는다.  
+preg_match_all()은 일치하는 모든패턴을 검색하며 세번째 인수로 전달되는 배열에 결과 저장  
+
+플래그  
+i : 대소문자 구분 안함  
+g : 일치하는 모든 부분을 선택하도록 설정  
+m : 여러줄의 문자열을 그 상태 그대로 여러줄로 비교하도록 설정  
+y : 대상 문자열의 현재 위치부터 비교를 시작하도록 설정  
+u : 해당 문자열이 utf-8로 인코딩 된 것으로 설정  
+
+### 세부 정규표현식
+tcpschool.com/php/php_regularExpression_basic  
+tcpschool.com/php/php_regularExpression_application  
+
+## 클래스
+
+### 클래스 구조  
+
+생성자(constructor), 소멸자(destructor)  
+클래스 객체 생성, 삭제 시 자동으로 호출 됨  
+__construct() 이름 고정  
+__destruct() 매개변수 못가짐  
+
+### 클래스 사용  
+인스턴스 생성 : new 키워드로 인스턴스 생성  
+멤버 접근 : 화살표 기호(->) 사용하여 접근  
+
+접근제어자  
+public : 어디서나 접근 가능  
+private : 클래스의 멤버만 접근  
+protected : 멤버나 상속받은 자식 클래스만 접근가능  
+
+### 상속(inheritance)
+부모 클래스(parent, super class)의 public, protected 멤버를 자식 클래스(child, sub)클래스가 상속받음  
+extends 키워드를 이용하여 정의  
+자식클래스는 하나의 부모 클래스만 가질 수 있다.  
+  
+메소드 오버라이딩(overriding)  
+자식클래스가 상속받은 부모의 메소드를 재정의하여 사용  
+  
+static 키워드  
+static을 이용한 프로퍼티와 메서드는 인스턴스를 생성하지 않아도 접근이 가능하다.  
+$this를 사용할 수 없다.  
+정적프로퍼티는 인스턴스화 된 객체에 접근 못함  
+정적 메소드는 인스턴스화 된 객체에 접근 가능  
+  
+### 인터페이스  
+추상 메서드(abstract method)  
+반드시 자식 클래스에서 오버라이딩 해야만 사용할 수 있는 메서드를 의미한다  
+따라서 추상 메서드는 선언부만 존재하고 구현부는 작성되어 있지 않다.  
+abstract 접근제어자 function 함수이름();  
+  
+추상 클래스(abstract class)  
+적어도 하나 이상의 추상 메서드를 포함하는 클래스  
+상속받는 자식클래스에 추상 메서드를 재정의 하도록 강제할 수 있다.  
+추상클래스는 인스턴스를 생성할 수 없다.  
+  
+인터페이스(interface)  
+다른 클래스를 작성할 때 기본이 되는 틀을 제공하는 일종의 추상 클래스  
+추상메서드로 구성되어 있음  
+interface function() { 구현 메서드; }  
+인터페이스를 구현하는 클래스는 반드시 인터페이스 정의와 같은 형태로 정의해야 한다.  
+인터페이스 끼리 extends키워드로 상속받을 수 있다.
+``` php
+class Car implements Overload {
+ ...
+}
+// Car클래스는 반드시 동일한 형태로 Overload인터페이스를 구현해야 한다.
+```
+
+오버로딩(Overloading)  
+tcpschool.com/php/php_oop_overloading  
+
+```
