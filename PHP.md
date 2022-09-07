@@ -588,4 +588,39 @@ class Car implements Overload {
 오버로딩(Overloading)  
 tcpschool.com/php/php_oop_overloading  
 
-```
+## Form 처리 
+form 태그로 전달받은 데이터는 배열에 담아 전달합니다.  
+슈퍼글로벌 배열($_GET, $_POST - PHP 4.1.0부터)을 사용하므로 어디든 제약없이 접근이 가능합니다.  
+
+GET방식은 브라우저에 의해 캐시되어 저장된다.  
+또한 쿼리 문자열이 포함되어 전송되어 길이의 제한이 있다.  
+보안상 취약점이 존재한다.  
+
+POST방식은 data를 별도로 첨부하여 전달한다.  
+POST방식은 캐시되지 않기 때문에 브라우저 히스토리에도 남지 않는다.  
+길이의 제한이 없으며 GET방식보다 보안성이 높다.  
+
+### Form검증
+tcpschool.com/php/php_form_validation  
+tcpschool.com/php/php_form_required  
+tcpschool.com/php/php_form_format  
+
+## 파일처리  
+### 파일 읽기, 쓰기, 기타 파일 함수  
+tcpschool.com/php/php_fileHandling_read  
+tcpschool.com/php/php_fileHandling_write  
+tcpschool.com/php/php_fileHandling_ect  
+
+## 쿠키와 세션
+쿠키 : 웹 접속시 서버에 의해 사용자 컴퓨터에 저장되는 정보  
+tcpschool.com/php/php_cookieSession_cookie  
+세션 : 여러 페이지에 걸쳐 사용되는 사용자 정보를 저장하는 방법  
+tcpschool.com/php/php_cookieSession_session  
+
+## 예외처리  
+throw 예외객체;  
+이때 예외 객체는 반드시 Exception클래스나 Exception클래스를 상속받은 자식 클래스  
+try, catch, finnaly 문으로 처리  
+tcpschool.com/php/php_exception_handling  
+
+
