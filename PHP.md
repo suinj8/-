@@ -149,7 +149,47 @@ enum Suit {
 ?>
 ```
 
+## 제어구조
+중괄호로 묶던지 if() {} 혹은 if(): endif; end문 사용하기  
+### if
+php와 다른 언어와 함께 쓰는법  
+``` php
+<?php if(condition): ?>
+// code to run if condition is true
+<?php else: ?>
+// code to run if condition is false
+<?php endif ?>
+
+// if사용법
+if(조건1):
+  echo "?";
+elseif (조건2):
+  echo "??";
+endif;
+```
+
+### foreach
+``` php
+$arr = array(1,2,3,4);
+foreach ($arr as &$value) {
+  $value = $value * 2;
+}
+```
+
+### require, include
+require('file.php') : 에러 상황시 경고를 발생시키고 이후 코드 중단  
+반드시 로직을 검사해야 하는 파일인 경우 사용한다.  
+include('file.php') : 에러 상황시 경고를 발생시키고 나머지 코드 실행 계속 진행  
+단순 출력용일 때 사용한다.  
++) require_once, include_once : 오직 한번만 불러오는 경우 사용한다.  
+
+### HTTP  
+php.net/manual/en/context.php  
+http://php.net/manual/en/context.http.php  
+
 ## 변수
+변수 다루기  
+https://www.php.net/manual/en/book.var.php
 
 ### 전역변수(global variable)
 ``` php
