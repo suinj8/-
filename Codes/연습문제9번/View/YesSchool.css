@@ -1,0 +1,68 @@
+.header {
+    text-align: center;
+    font-size: 3rem;
+    padding: 20px;
+    color: blue;
+}
+
+.subHeader {
+    text-align: center;
+    font-size: 3rem;
+    padding: 20px;
+    color: cadetblue;
+}
+
+.container {
+    width: 80vw;
+    padding: 20px;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    color: white;
+    background-color: dodgerblue;
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 30px;
+    width: 100px;
+    Height: 60px;
+}
+
+.btn.leftBtn {
+    background-color: blueviolet;
+    border: 1px solid blueviolet;
+}
+
+.btn.rightBtn  {
+    margin-bottom: 30px;
+    float: right;
+}
+
+#mainTable {
+    height: auto;
+    border : 1px solid black;
+}
+
+table {
+    text-align: center;
+    border : 1px solid black;
+}
+
+th, td{
+    border : 1px solid black;
+    width: auto;
+}
+
+.list-btn-wrapper {
+    display :flex;
+    flex-direction: column;
+}
+
+#name, #score {
+    cursor: pointer;
+}
