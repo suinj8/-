@@ -1,3 +1,6 @@
+HTTP 참조: https://surprisecomputer.tistory.com/47
+CORS 참조: https://evan-moon.github.io/2020/05/21/about-cors/   
+   
 # HTTP Status Code  
 자주쓰이는 코드 위주로 정리   
    
