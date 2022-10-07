@@ -118,3 +118,77 @@ API에서 종점(URI)는 적절하지만 리소스 자체는 존재하지 않음
 서버가 게이트웨이나 프록시 역할을 하고 있거나   
 업스트림 서버에서 제때 요청을 받지 못함   
 
+   
+# CORS(Cross-Origin Resource Sharing) 정책
+교차 출처 리소스 공유   
+서로 다른 출처를 가진 리소스를 안전하게 사용하게 함   
+   
+## CORS의 동작
+웹 클라이언트는 어플리케이션이 다른 출처의 리소스를 요청할 때 HTTP프로토콜을 이용하여 요청   
+이 때, 브라우저는 요청 헤더에 Origin이라는 필드에 요청을 보내는 출처를 함께 담아 보냄   
+``` http
+Origin: https://~
+```
+이후 서버가 이 요청에 대해 응답할 때 응답 헤더의 Access-Control-Allow-Origin이라는 값에   
+"이 리소스를 접근하는 것이 허용된 출처"를 내리고   
+이후 브라우저는 자신이 보냈던 요청의 Origin과 서버가 보내준 응답의 Access-Control-Allow-Origin을 비교한 후   
+응답이 유요한지 판단함   
+   
+## Preflight Request
+Preflight방식은 일반적으로 웹 어플리케이션을 개발할 때 가장 많이 마주치는 시나리오   
+이 방식은 본 요청과 예비 요청을 나누어 서버에 전송   
+여기서 예비요청을 Preflight라고 부름   
+   
+예비요청에는 OPTIONS메서드를 사용함   
+예비요청의 역할은 본 요청 전 브라우저 스스로 요청이 안전한지 확인하는 것   
+   
+만약 JS로 fetch API를 사용하여 브라우저에 리소스를 받아오라고 한다면   
+브라우저는 서버에 예비 요청을 보내고   
+서버는 응답으로 어떤것들을 허용하고 금지하는지에 대해 응답헤더에 담아 반환함   
+   
+이후 브라우저는 자신이 보낸 예비요청과 서버응답의 허용정책과 비교한 뒤   
+요청을 보내는 것이 안전하다고 판단되면 본 요청을 보내게 됨   
+이후 본 요청의 응답을 JS에 넘겨줌   
+``` http
+// 서버가 OPTIONS의 응답으로  
+HTTP/1.1 200 OK
+Date: Mon, 01 Dec 2008 01:15:39 GMT
+Server: Apache/2.0.61 (Unix)
+Access-Control-Allow-Origin: http://foo.example
+Access-Control-Allow-Methods: POST, GET, OPTIONS
+Access-Control-Allow-Headers: X-PINGOTHER, Content-Type
+Access-Control-Max-Age: 86400
+Vary: Accept-Encoding, Origin
+Content-Encoding: gzip
+Content-Length: 0
+Keep-Alive: timeout=2, max=100
+Connection: Keep-Alive
+Content-Type: text/plain
+```
+여기서 요청한 출처의 Origin값과 응답의 Access-Control-Allow-Origin값이   
+다르다면 서버에서 허용한 출처와 다르다는 의미로   
+CORS정책을 위반했다고 판단함   
+이는 정상적으로 200 Code가 반환되지만 이와는 별개의 문제임   
+   
+## Simple Request
+예비요청을 보내지 않고 바로 서버에게 본 요청을 보내는 방식   
+이후 응답 헤더에 Access-Control-Allow_origin값과 비교하여 CORS 정책 위반 여부를 검사   
+이는 특정 조건을 만족하는 경우에만 예비요청을 생략할 수 있음   
+
+### 조건
+1. 요청의 메서드는 GET, HEAD, POST중 하나   
+2. Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width, Width   
+를 제외한 헤더를 사용하면 안됨   
+3. 만약 Content-Type을 사용하는 경우 application/x-www-form-urlencoded, multipart/form-data, text/plain 만 허용   
+일반적으로 흔한 상황은 아니고 만족하기 어려움   
+
+## Credentialed Request
+인증된 요청을 사용하는 방법   
+다른 출처 간 통신에 보안을 강화하고 싶을 때 사용하는 방식   
+요청에 인증과 관련된 정보를 담을 수 있게 해주는 옵션(credentials)사용   
+   
+### 옵션 종류
+1. same-origin(Default): 같은 출처 간 요청에만 인증 정보를 담을 수 있음
+2. include: 모든 요청에 인증 정보를 담을 수 있음
+3. omit: 모든 요청에 인증 정보를 담지 않음   
+여기서 1, 2번 옵션을 사용한다면 Access-Control-Allow-Origin외에 더 많은 검사를 
