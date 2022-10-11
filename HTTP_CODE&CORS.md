@@ -1,5 +1,93 @@
+Request & Respone 참조: https://hahahoho5915.tistory.com/62   
 HTTP 참조: https://surprisecomputer.tistory.com/47   
 CORS 참조: https://evan-moon.github.io/2020/05/21/about-cors/   
+   
+# HTTP Request & Response
+   
+## HTTP Request Message
+공백을 제외하고 3가지 부분으로 나뉨
+1. start Line
+2. Headers
+3. Body
+
+``` http
+GET /test.html HTTP/1.1               - start Line
+Host: google.com                      - Headers
+Accept: text/html                     - Headers  
+Accept-Encoding: gzip, deflate        - Headers  
+Connection: keep-alive                - Headers
+(blank)                               - blank(header와 body를 구분)
+hl=ko&ogbl=0&page=99                  - body
+```
+
+### Start Line
+GET(1) /test.html(2) HTTP/1.1(3)
+1. HTTP method : GET, POST, PUT, DELETE
+2. Request Target : HTTP Request 가 전송되는 주 목표
+3. HTTP Version : version 명시
+   
+### Headers
+해당 Request의 추가 정보를 담고있는 부분   
+``` http
+Host: google.com
+...
+```
+Host : 요청하려는 서버 호스트 이름과 포트번호   
+User-agent : 클라이언트 프로그램 정보 - 서버는 이 정보로 최적의 데이터를 보내줌   
+Referer : 바로 직전에 머물렀던 웹 링크 주소   
+Accept : 클라이언트 처리 가능한 미디어 타입 종류 나열   
+If-Modified-Since : 여기에 쓰여진 시간 이후로 변경된 리소스 취득   
+Authorization : 인증 토큰을 서버로 보낼 때 쓰임   
+Origin : 서버로 Post요청 보낼 때 어느 주소에 시작되었는지 나타냄 이 값과 받은 주소가 다르면 CORS에러   
+Cookie : key-value쌍으로 표현   
+   
+### Body
+HTTP Request가 전송하는 데이터를 담고 있는 부분
+전송데이터가 없다면 body는 비어있음
+
+``` http
+POST /test HTTP/1.1
+
+Accept: application/json
+header...
+
+{
+  "test_id": "test_id",
+  "order_id": "order_id"
+}
+```
+   
+   
+## Response Message
+HTTP Response Message는 request와 동일하게 공백을 제외하고 3가지 부분
+1. Status Line
+2. Headers
+3. Body
+   
+``` http
+HTTP/1.1 200 OK               - status Line
+Date: Sun, 26 June ...        - headers
+Server: Apache                - headers
+Content-Length: 36            - headers
+Content-Type: text/html       - headers
+(blank)                       - blank
+<h1>hello</h1>                - body
+```
+   
+### status line
+HTTP Response의 상태를 간략하게 나타내주는 부분
+HTTP/1.1(1) 200(2) OK(3)   
+1. HTTP version
+2. Status Code
+3. Status Text   
+   
+### headers
+request와 유사 하지만 response에서만 사용되는 header값 존재   
+ex) User-Agent 대신 Server헤더 사용
+   
+### Body
+request와 유사   
+보낼 데이터가 없으면 없을수도 있음
    
 # HTTP Status Code  
 자주쓰이는 코드 위주로 정리   
@@ -120,7 +208,7 @@ API에서 종점(URI)는 적절하지만 리소스 자체는 존재하지 않음
 ### 504(게이트웨이 시간초과)
 서버가 게이트웨이나 프록시 역할을 하고 있거나   
 업스트림 서버에서 제때 요청을 받지 못함   
-
+   
    
 # CORS(Cross-Origin Resource Sharing) 정책
 교차 출처 리소스 공유   
