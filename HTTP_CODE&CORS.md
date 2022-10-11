@@ -75,7 +75,7 @@ Content-Type: text/html       - headers
 ```
    
 ### status line
-HTTP Response의 상태를 간략하게 나타내주는 부분
+HTTP Response의 상태를 간략하게 나타내주는 부분   
 HTTP/1.1(1) 200(2) OK(3)   
 1. HTTP version
 2. Status Code
@@ -83,11 +83,11 @@ HTTP/1.1(1) 200(2) OK(3)
    
 ### headers
 request와 유사 하지만 response에서만 사용되는 header값 존재   
-ex) User-Agent 대신 Server헤더 사용
+ex) User-Agent 대신 Server헤더 사용   
    
 ### Body
 request와 유사   
-보낼 데이터가 없으면 없을수도 있음
+보낼 데이터가 없으면 없을수도 있음   
    
 # HTTP Status Code  
 자주쓰이는 코드 위주로 정리   
@@ -282,4 +282,20 @@ CORS정책을 위반했다고 판단함
 1. same-origin(Default): 같은 출처 간 요청에만 인증 정보를 담을 수 있음
 2. include: 모든 요청에 인증 정보를 담을 수 있음
 3. omit: 모든 요청에 인증 정보를 담지 않음   
-여기서 1, 2번 옵션을 사용한다면 Access-Control-Allow-Origin외에 더 많은 검사를 
+여기서 1, 2번 옵션을 사용한다면 Access-Control-Allow-Origin외에 더 많은 검사 진행   
+- Access-Control-Allow-Origin 에 \*를 사용할 수 없으며, 명시적인 URL 이여야 함
+- 응답 헤더에는 반드시 Access-Control-Allow-Credentials: true가 존재해야 함
+   
+## CORS해결하기
+1. Access-Control-Allow-Origin 세팅 - 헤더에 알맞은 값을 세팅하기
+2. Webpack Dev Server로 리버스 프록싱 - 프록시 기능일 이용하여 CORS정책을 우회하는 방법   
+``` js
+module.exports = {
+  devServer: {
+    proxy: {
+      '/api': {
+...
+    }
+  }
+}
+```
