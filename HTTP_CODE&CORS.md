@@ -288,7 +288,7 @@ CORS정책을 위반했다고 판단함
    
 ## CORS해결하기
 1. Access-Control-Allow-Origin 세팅 - 헤더에 알맞은 값을 세팅하기
-2. Webpack Dev Server로 리버스 프록싱 - 프록시 기능일 이용하여 CORS정책을 우회하는 방법   
+2. Webpack Dev Server로 리버스 프록싱 - 프록시 기능을 이용하여 CORS정책을 우회하는 방법   
 ``` js
 module.exports = {
   devServer: {
